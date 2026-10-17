@@ -1,6 +1,8 @@
 {
  "map": {
   "24kitchen.pt": "24Kitchen.pt",
+  "CanalPanda.pt": "CanalPanda.pt",
+  "PandaKids.pt": "PandaKids.pt",
   "abolatv.pt": "ABolaTV.pt",
   "afromusicchannel.pt": "AfroMusicChannel.pt",
   "amc.pt": "AMC.pt",
@@ -108,7 +110,7 @@
   "globonews.pt": "no equivalent in the M3UPT guide",
   "lolly.kids.pt": "no equivalent in the M3UPT guide",
   "motorvision.pt": "shared by two different motor channels",
-  "panda.pt": "shared by Panda Kids and Canal Panda - assign by hand (PandaKids.pt / CanalPanda.pt)",
+  "panda.pt": "shared by Panda Kids and Canal Panda - assign by hand in TiviMate to the guide entries 'Panda Kids' and 'Canal Panda'",
   "pfc.pt": "no equivalent in the M3UPT guide",
   "toros.pt": "no equivalent in the M3UPT guide"
  },
