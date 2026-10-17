@@ -122,10 +122,32 @@ def fetch_dazn(cfg, local_file=None):
                           "cats": [g.get("name") for g in (it.get("Genre") or [])
                                    if isinstance(g, dict) and g.get("name")]})
         if progs:
-            result[pid] = sorted(progs, key=lambda p: p["start"])
+            result[pid] = clean_placeholders(sorted(progs, key=lambda p: p["start"]))
     found = ", ".join(f"{cfg['channels'][p]['name']}: {len(v)}" for p, v in result.items())
     print(f"DAZN schedule: {found or 'no programmes found'}")
     return result
+
+
+PLACEHOLDER_TITLE = "Sem informação (DAZN)"
+
+
+def is_placeholder(p):
+    """DAZN fills unannounced slots with a one- or two-letter title such as 'D'."""
+    return len(p["title"]) <= 2 and not p["sub"] and not p["desc"]
+
+
+def clean_placeholders(progs):
+    """Give placeholder slots a clear title and merge back-to-back ones into one block."""
+    out = []
+    for p in progs:
+        if is_placeholder(p):
+            p = {**p, "title": PLACEHOLDER_TITLE, "cats": []}
+            prev = out[-1] if out else None
+            if prev and prev["title"] == PLACEHOLDER_TITLE and prev["stop"] >= p["start"]:
+                prev["stop"] = max(prev["stop"], p["stop"])
+                continue
+        out.append(p)
+    return out
 
 
 def dazn_title(p):
