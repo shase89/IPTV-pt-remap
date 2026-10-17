@@ -1,4 +1,4 @@
-Guide source comparison - Sat Oct 17 14:36:37 UTC 2026
+Guide source comparison - Sat Oct 17 14:48:11 UTC 2026
 
 COMPARISON - 109 Portuguese channels in your playlist, next 7 days
 
@@ -21,26 +21,26 @@ tvi.pt                      119/0/0
 cnn.pt                      86/0/0              
 cmtv.pt                     139/0/0             
 sicnoticias.pt              191/0/0             
-rtp3.pt                     233/0/0             
+rtp3.pt                     232/0/0             
 rtpmemoria.pt               221/0/0             
 rtpmadeira.pt               84/0/0              
 rtpinternacional.pt         162/0/0             
-rtpafrica.pt                156/1/0             
+rtpafrica.pt                155/1/0             
 rtpacores.pt                75/0/23             
-artv.pt                     68/0/12             
+artv.pt                     67/0/12             
 siccaras.pt                 192/0/0             
-sicradical.pt               278/0/0             
+sicradical.pt               277/0/0             
 sicmulher.pt                235/0/0             
 kuriakostv.pt               209/0/0             
 tvireality.pt               87/0/0              
 tvificcao.pt                126/0/0             
-24kitchen.pt                350/0/0             
+24kitchen.pt                349/0/0             
 tlc.pt                      213/0/0             
 cancaonova.pt               241/0/0             
-canalq.pt                   294/0/0             
+canalq.pt                   293/0/0             
 eentertainment.pt           33/0/33             
 zapviva.pt                  98/0/0              
-casaecozinha.pt             250/0/0             
+casaecozinha.pt             249/0/0             
 hgtv.pt                     237/0/0             
 mtv.pt                      257/12/0            
 bomsom.pt TV                37/0/0              
@@ -48,7 +48,7 @@ clubbingtvhd.pt             178/0/0
 traceurban.pt               79/0/0              
 tracetoca.pt                94/0/0              
 mcmpop.pt                   27/0/0              
-afromusicchannel.pt         164/0/0             
+afromusicchannel.pt         163/0/0             
 mezzo.pt                    128/3/0             
 tvcinetop.pt                95/0/0              
 tvcineemotion.pt            113/0/0             
@@ -59,10 +59,10 @@ vh1.pt                      93/0/0
 syfy.pt                     163/2/0             
 cinemundo.pt                86/0/0              
 starmovies.pt               104/2/0             
-star.pt                     197/0/0             
-starlife.pt                 188/0/0             
+star.pt                     196/0/0             
+starlife.pt                 187/0/0             
 starcrime.pt                144/0/0             
-starcomedy.pt               373/0/0             
+starcomedy.pt               372/0/0             
 canalhollywood.pt           88/0/0              
 nostudios.pt                104/0/0             
 amc.pt                      96/0/0              
@@ -97,28 +97,28 @@ fueltv.pt                   224/0/8
 toros.pt                    -                   
 cacavision.pt               -                   
 cacaepesca.pt               307/0/0             
-euronews.pt                 296/0/0             
+euronews.pt                 294/0/0             
 recordtv.pt                 208/0/0             
 globonews.pt                -                   
 globo.pt                    73/1/0              
-disneyjunior.pt             643/0/0             
+disneyjunior.pt             642/0/0             
 disneychannel.pt            394/0/0             
-nickelodeon.pt              369/0/0             
+nickelodeon.pt              368/0/0             
 nickjr.pt                   435/0/0             
-sick.pt                     383/0/0             
+sick.pt                     382/0/0             
 panda.pt                    -                   
 biggs.pt                    216/0/0             
-cartoonnetwork.pt           372/0/0             
-babytv.pt                   2043/0/0            
+cartoonnetwork.pt           371/0/0             
+babytv.pt                   2041/0/0            
 lolly.kids.pt               -                   
-discoverychannelhd.pt       237/0/0             
+discoverychannelhd.pt       236/0/0             
 odisseia.pt                 208/0/0             
 nationalgeographic.pt       217/0/0             
 nationalgeographicwild.pt   222/2/0             
 investigationdiscovery.pt   157/0/0             
 travelxp.pt                 294/0/0             
 travelchannel.pt            152/0/0             
-historia.pt                 221/0/0             
+historia.pt                 220/0/0             
 splus.pt                    215/0/0             
 bloomberg.pt                147/1/0             
 foodnetwork.pt              203/2/0             
@@ -127,7 +127,7 @@ tcvinternational.pt         62/0/23
 ################ DETAILS ################
 baseline: 101 of your 109 Portuguese channels have programmes in the next 7 days
 
-DAZN channels, from 2 h ago to 8 h ahead (times in UTC; now 17 14:36):
+DAZN channels, from 2 h ago to 8 h ahead (times in UTC; now 17 14:48):
   [elevensports1.pt]
     17 11:20-13:35  (Direto)
     17 13:35-13:50  UEFA Champions League 26/27 - Lens x Sporting
@@ -178,17 +178,15 @@ DAZN channels, from 2 h ago to 8 h ahead (times in UTC; now 17 14:36):
 
 =================== tv_grab_pt_vodafone ===================
 XMLTV module version 1.3.0
+vodafone.pt reachable from the runner: HTTP 200
+--- grabber messages while listing channels (first 40 lines) ---
+ Error on the remote EPG API call
+channels in that listing: 0
+0
+--- end of grabber messages ---
 vodafone: the source lists 0 channels; 0 of your 109 Portuguese channels found in it
 not found: rtp1.pt, rtp2.pt, sic.pt, tvi.pt, cnn.pt, cmtv.pt, sicnoticias.pt, rtp3.pt, rtpmemoria.pt, rtpmadeira.pt, rtpinternacional.pt, rtpafrica.pt, rtpacores.pt, artv.pt, siccaras.pt, sicradical.pt, sicmulher.pt, kuriakostv.pt, tvireality.pt, tvificcao.pt, 24kitchen.pt, tlc.pt, cancaonova.pt, canalq.pt, eentertainment.pt, zapviva.pt, casaecozinha.pt, hgtv.pt, mtv.pt, bomsom.pt TV, clubbingtvhd.pt, traceurban.pt, tracetoca.pt, mcmpop.pt, afromusicchannel.pt, mezzo.pt, tvcinetop.pt, tvcineemotion.pt, tvcineedition.pt, tvcineaction.pt, vh1.pt, 1plus1.pt, syfy.pt, cinemundo.pt, starmovies.pt, star.pt, starlife.pt, starcrime.pt, starcomedy.pt, canalhollywood.pt, nostudios.pt, amc.pt, amccrime.pt, amcbreak.pt, axn.pt, axnmovies.pt, axnwhite.pt, sporttvplus.pt, canal11.pt, sporttv1.pt, sporttv2.pt, sporttv3.pt, sporttv4.pt, sporttv5.pt, sporttv6.pt, elevensports1.pt, elevensports2.pt, elevensports3.pt, elevensports4.pt, elevensports5.pt, benficatv.pt, sportingtv.pt, abolatv.pt, porto.pt, motorvision.pt, pfc.pt, eurosport1.pt, eurosport2.pt, wsport.pt, fueltv.pt, toros.pt, cacavision.pt, cacaepesca.pt, euronews.pt, recordtv.pt, globonews.pt, globo.pt, disneyjunior.pt, disneychannel.pt, nickelodeon.pt, nickjr.pt, sick.pt, panda.pt, biggs.pt, cartoonnetwork.pt, babytv.pt, lolly.kids.pt, discoverychannelhd.pt, odisseia.pt, nationalgeographic.pt, nationalgeographicwild.pt, investigationdiscovery.pt, travelxp.pt, travelchannel.pt, historia.pt, splus.pt, bloomberg.pt, foodnetwork.pt, tcvinternational.pt
-Traceback (most recent call last):
-  File "/home/runner/work/IPTV-pt-remap/IPTV-pt-remap/compare.py", line 235, in <module>
-    cmd_stats(a[1], a[2])
-  File "/home/runner/work/IPTV-pt-remap/IPTV-pt-remap/compare.py", line 140, in cmd_stats
-    for _e, el in ET.iterparse(f, events=("end",)):
-  File "/usr/lib/python3.12/xml/etree/ElementTree.py", line 1242, in iterator
-    root = pullparser._close_and_return_root()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/xml/etree/ElementTree.py", line 1290, in _close_and_return_root
-    root = self._parser.close()
-           ^^^^^^^^^^^^^^^^^^^^
-xml.etree.ElementTree.ParseError: no element found: line 4, column 191
+--- grabber messages while grabbing (first 20 lines) ---
+Can't use an undefined value as an ARRAY reference at /usr/bin/tv_grab_pt_vodafone line 248.
+vodafone: the downloaded file is incomplete or broken (no element found: line 4, column 191); the grabber stopped part-way.
+no statistics for this source
