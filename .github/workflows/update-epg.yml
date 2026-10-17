@@ -1,0 +1,30 @@
+name: Update guide
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # every day at 04:17 UTC
+  workflow_dispatch: {}     # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the guide
+        run: python3 build_epg.py
+
+      - name: Publish if it changed
+        run: |
+          if [ -n "$(git status --porcelain docs/)" ]; then
+            git config user.name "github-actions"
+            git config user.email "actions@users.noreply.github.com"
+            git add docs/
+            git commit -m "Update guide $(date -u +%F)"
+            git push
+          else
+            echo "No change"
+          fi
