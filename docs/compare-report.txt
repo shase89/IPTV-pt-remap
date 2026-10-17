@@ -1,0 +1,183 @@
+Guide source comparison - Sat Oct 17 14:25:01 UTC 2026
+
+COMPARISON - 109 Portuguese channels in your playlist, next 7 days
+
+source                 channels median days with desc  generic  sports: named sports: generic
+---------------------------------------------------------------------------------------------
+baseline                    101         6.4       90%       5%            15%             29%
+
+channels = how many of your channels have data; median days = how far ahead the guide goes;
+with desc = programmes that have a description; generic = empty, '(Direto)' or episode-code titles;
+sports named = sports programmes that name a match (A x B); sports generic = sports slots with no real title.
+
+NO SOURCE HAS: 1plus1.pt, cacavision.pt, globonews.pt, lolly.kids.pt, motorvision.pt, panda.pt, pfc.pt, toros.pt
+
+PER CHANNEL (programmes / named matches / generic titles):
+channel                     baseline            
+rtp1.pt                     122/0/0             
+rtp2.pt                     309/0/0             
+sic.pt                      118/0/2             
+tvi.pt                      119/0/0             
+cnn.pt                      86/0/0              
+cmtv.pt                     139/0/0             
+sicnoticias.pt              192/0/0             
+rtp3.pt                     233/0/0             
+rtpmemoria.pt               221/0/0             
+rtpmadeira.pt               84/0/0              
+rtpinternacional.pt         162/0/0             
+rtpafrica.pt                156/1/0             
+rtpacores.pt                75/0/23             
+artv.pt                     68/0/12             
+siccaras.pt                 193/0/0             
+sicradical.pt               278/0/0             
+sicmulher.pt                235/0/0             
+kuriakostv.pt               209/0/0             
+tvireality.pt               87/0/0              
+tvificcao.pt                126/0/0             
+24kitchen.pt                350/0/0             
+tlc.pt                      214/0/0             
+cancaonova.pt               241/0/0             
+canalq.pt                   294/0/0             
+eentertainment.pt           33/0/33             
+zapviva.pt                  99/0/0              
+casaecozinha.pt             250/0/0             
+hgtv.pt                     237/0/0             
+mtv.pt                      257/12/0            
+bomsom.pt TV                37/0/0              
+clubbingtvhd.pt             178/0/0             
+traceurban.pt               79/0/0              
+tracetoca.pt                94/0/0              
+mcmpop.pt                   27/0/0              
+afromusicchannel.pt         164/0/0             
+mezzo.pt                    128/3/0             
+tvcinetop.pt                95/0/0              
+tvcineemotion.pt            113/0/0             
+tvcineedition.pt            107/0/0             
+tvcineaction.pt             93/0/0              
+vh1.pt                      93/0/0              
+1plus1.pt                   -                   
+syfy.pt                     163/2/0             
+cinemundo.pt                86/0/0              
+starmovies.pt               104/2/0             
+star.pt                     197/0/0             
+starlife.pt                 188/0/0             
+starcrime.pt                144/0/0             
+starcomedy.pt               373/0/0             
+canalhollywood.pt           88/0/0              
+nostudios.pt                104/0/0             
+amc.pt                      96/0/0              
+amccrime.pt                 223/0/0             
+amcbreak.pt                 371/0/0             
+axn.pt                      146/0/0             
+axnmovies.pt                85/0/0              
+axnwhite.pt                 143/0/0             
+sporttvplus.pt              213/85/1            
+canal11.pt                  65/17/0             
+sporttv1.pt                 118/81/2            
+sporttv2.pt                 97/42/0             
+sporttv3.pt                 89/15/9             
+sporttv4.pt                 110/5/18            
+sporttv5.pt                 82/41/15            
+sporttv6.pt                 58/9/35             
+elevensports1.pt            95/7/75             
+elevensports2.pt            100/5/87            
+elevensports3.pt            144/7/132           
+elevensports4.pt            230/0/229           
+elevensports5.pt            209/0/197           
+benficatv.pt                168/42/0            
+sportingtv.pt               222/23/0            
+abolatv.pt                  296/2/31            
+porto.pt                    51/0/0              
+motorvision.pt              -                   
+pfc.pt                      -                   
+eurosport1.pt               97/0/0              
+eurosport2.pt               109/0/0             
+wsport.pt                   123/48/0            
+fueltv.pt                   225/0/8             
+toros.pt                    -                   
+cacavision.pt               -                   
+cacaepesca.pt               307/0/0             
+euronews.pt                 297/0/0             
+recordtv.pt                 208/0/0             
+globonews.pt                -                   
+globo.pt                    73/1/0              
+disneyjunior.pt             643/0/0             
+disneychannel.pt            395/0/0             
+nickelodeon.pt              369/0/0             
+nickjr.pt                   437/0/0             
+sick.pt                     383/0/0             
+panda.pt                    -                   
+biggs.pt                    217/0/0             
+cartoonnetwork.pt           373/0/0             
+babytv.pt                   2045/0/0            
+lolly.kids.pt               -                   
+discoverychannelhd.pt       237/0/0             
+odisseia.pt                 208/0/0             
+nationalgeographic.pt       217/0/0             
+nationalgeographicwild.pt   223/2/0             
+investigationdiscovery.pt   157/0/0             
+travelxp.pt                 295/0/0             
+travelchannel.pt            152/0/0             
+historia.pt                 221/0/0             
+splus.pt                    216/0/0             
+bloomberg.pt                147/1/0             
+foodnetwork.pt              203/2/0             
+tcvinternational.pt         62/0/23             
+
+################ DETAILS ################
+baseline: 101 of your 109 Portuguese channels have programmes in the next 7 days
+
+DAZN channels, from 2 h ago to 8 h ahead (times in UTC; now 17 14:24):
+  [elevensports1.pt]
+    17 11:20-13:35  (Direto)
+    17 13:35-13:50  UEFA Champions League 26/27 - Lens x Sporting
+    17 13:50-16:00  (Direto)
+    17 16:00-16:20  Premier League The Big Interview 26/27 - Patrick Viera - Ep05
+    17 16:20-18:30  (Direto)
+    17 18:30-18:50  FreeTour La Liga 2026-2027
+    17 18:50-21:00  (Direto)
+    17 21:00-23:00  Informação Não Disponibilizada Pelo Canal
+  [elevensports2.pt]
+    17 11:00-13:15  (Direto)
+    17 13:15-13:35  UEFA Champions League 26/27 - Bétis x FC Porto
+    17 13:35-14:01  Premier League Stories 2025-26 - Michael Carrick
+    17 14:01-16:10  (Direto)
+    17 16:10-16:30  Informação Não Disponibilizada Pelo Canal
+    17 16:30-18:30  (Direto)
+    17 18:30-20:30  Informação Não Disponibilizada Pelo Canal
+    17 20:30-21:00  Premier League Stories 2025-26 - John Stones - Ep 16
+    17 21:00-23:00  Informação Não Disponibilizada Pelo Canal
+  [elevensports3.pt]
+    17 11:50-14:05  (Direto)
+    17 14:05-16:25  (Direto)
+    17 16:25-18:30  (Direto)
+    17 18:30-20:30  Informação Não Disponibilizada Pelo Canal
+    17 20:30-22:25  Informação Não Disponibilizada Pelo Canal
+  [elevensports4.pt]
+    17 09:35-13:15  Informação Não Disponibilizada Pelo Canal
+    17 13:15-13:25  Bundesliga Clubs - Union Berlin - Ep07
+    17 13:25-15:30  (Direto)
+    17 15:30-16:00  Bundesliga Clubs - B. Dortmund Ep1
+    17 16:00-16:35  Informação Não Disponibilizada Pelo Canal
+    17 16:35-21:00  Informação Não Disponibilizada Pelo Canal
+    17 21:00-21:35  Informação Não Disponibilizada Pelo Canal
+    17 21:35-22:10  Informação Não Disponibilizada Pelo Canal
+    17 22:10-22:50  Informação Não Disponibilizada Pelo Canal
+  [elevensports5.pt]
+    17 11:50-12:50  Informação Não Disponibilizada Pelo Canal
+    17 12:50-13:10  Informação Não Disponibilizada Pelo Canal
+    17 13:10-17:10  (Direto)
+    17 17:10-17:25  Informação Não Disponibilizada Pelo Canal
+    17 17:25-17:40  Informação Não Disponibilizada Pelo Canal
+    17 17:40-18:40  Informação Não Disponibilizada Pelo Canal
+    17 18:40-19:20  Informação Não Disponibilizada Pelo Canal
+    17 19:20-20:30  Informação Não Disponibilizada Pelo Canal
+    17 20:30-00:20  Informação Não Disponibilizada Pelo Canal
+    17 20:30-00:20  Informação Não Disponibilizada Pelo Canal
+
+=================== tv_grab_pt_meo ===================
+grabber is not installed on this runner
+
+=================== tv_grab_pt_vodafone ===================
+listing channels FAILED:
+You need to configure the grabber before you can list the channels.
