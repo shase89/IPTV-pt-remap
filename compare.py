@@ -83,7 +83,13 @@ def wanted_names():
 def cmd_conf(name, list_xml, conf):
     os.makedirs(WORK, exist_ok=True)
     pt, wanted = wanted_names()
-    src = read_channels(list_xml)
+    try:
+        src = read_channels(list_xml)
+    except (ET.ParseError, OSError) as exc:
+        print(f"{name}: could not read the channel list ({exc})")
+        json.dump({"matches": {}, "how": {}, "source_channels": 0}, open(f"{WORK}/{name}.matches.json", "w"))
+        open(conf, "w").close()
+        return
     src_norm = {cid: {norm(n) for n in names if n} for cid, names in src.items()}
     matches, how = {}, {}
     for pid, wn in wanted.items():
@@ -129,6 +135,9 @@ def cmd_stats(name, prog_xml):
     if name == "baseline":
         rev = {pid: pid for pid in pt}
     else:
+        if not os.path.exists(f"{WORK}/{name}.matches.json"):
+            print(f"{name}: no channel matching was done, so there is nothing to measure")
+            return
         m = json.load(open(f"{WORK}/{name}.matches.json"))["matches"]
         rev = {}
         for pid, cid in m.items():
@@ -136,6 +145,16 @@ def cmd_stats(name, prog_xml):
         rev = {cid: pids for cid, pids in rev.items()}
     per = {}
     detail = {}
+    try:
+        _read_programmes(prog_xml, name, pt, rev, now, horizon, per, detail)
+    except ET.ParseError as exc:
+        print(f"{name}: the downloaded file is incomplete or broken ({exc}); the grabber stopped part-way.")
+        print("no statistics for this source")
+        return
+    _finish_stats(name, pt, per, detail, now)
+
+
+def _read_programmes(prog_xml, name, pt, rev, now, horizon, per, detail):
     with open_xml(prog_xml) as f:
         for _e, el in ET.iterparse(f, events=("end",)):
             if el.tag != "programme":
@@ -163,6 +182,9 @@ def cmd_stats(name, prog_xml):
                     if now - timedelta(hours=2) <= e and s <= now + timedelta(hours=8):
                         detail.setdefault(pid, []).append((s, e, title))
             el.clear()
+
+
+def _finish_stats(name, pt, per, detail, now):
     out = {}
     for pid, st in per.items():
         out[pid] = {**{k: st[k] for k in ("n", "desc", "generic", "versus")},
