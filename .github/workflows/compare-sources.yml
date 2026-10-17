@@ -36,6 +36,15 @@ jobs:
               echo "grabber is not installed on this runner"; exit 0
             fi
             "$G" --version 2>&1 | head -n 1
+            # can the runner even reach Vodafone's site?
+            curl -s -o /dev/null -m 20 -w "vodafone.pt reachable from the runner: HTTP %{http_code}\n" https://www.vodafone.pt/ || echo "vodafone.pt: no answer from the runner"
+            # what does the grabber itself say?
+            : > "work/$N.conf"
+            timeout 300 "$G" --list-channels --config-file "work/$N.conf" --debug --output "work/$N.dbg.xml" 2>"work/$N.dbg.txt" || true
+            echo "--- grabber messages while listing channels (first 40 lines) ---"
+            head -n 40 "work/$N.dbg.txt"
+            echo "channels in that listing: $(grep -c '<channel ' "work/$N.dbg.xml" 2>/dev/null || echo 0)"
+            echo "--- end of grabber messages ---"
             # the grabber insists on an existing config file, even just to list channels
             : > "work/$N.conf"
             if ! timeout 600 "$G" --list-channels --config-file "work/$N.conf" --output "work/$N.channels.xml" --quiet 2>"work/$N.err1"; then
@@ -56,6 +65,7 @@ jobs:
             if [ ! -s "work/$N.xml" ]; then
               echo "grabbing FAILED:"; cat work/$N.err2 work/$N.err3 2>/dev/null | head -n 20; exit 0
             fi
+            echo "--- grabber messages while grabbing (first 20 lines) ---"; head -n 20 "work/$N.err2" 2>/dev/null
             python3 compare.py stats "$N" "work/$N.xml"
           } > work/grabbers.txt 2>&1
           cat work/grabbers.txt | head -n 40
