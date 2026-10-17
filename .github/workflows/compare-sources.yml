@@ -1,0 +1,73 @@
+name: Compare guide sources
+
+on:
+  workflow_dispatch: {}     # run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XMLTV
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xmltv
+
+      - name: Measure the guide you use today
+        continue-on-error: true
+        run: |
+          mkdir -p work docs
+          python3 compare.py stats baseline docs/epg.xml.gz > work/baseline.txt 2>&1 || true
+
+      - name: Measure the Portuguese grabbers
+        continue-on-error: true
+        run: |
+          for G in tv_grab_pt_meo tv_grab_pt_vodafone; do
+            N="${G#tv_grab_pt_}"
+            {
+              echo ""
+              echo "=================== $G ==================="
+              if ! command -v "$G" >/dev/null 2>&1; then
+                echo "grabber is not installed on this runner"; continue
+              fi
+              if ! timeout 600 "$G" --list-channels --output "work/$N.channels.xml" --quiet 2>"work/$N.err1"; then
+                echo "listing channels FAILED:"; head -n 15 "work/$N.err1"; continue
+              fi
+              python3 compare.py conf "$N" "work/$N.channels.xml" "work/$N.conf"
+              # first try: config file; second try: channel list on the command line
+              timeout 1500 "$G" --config-file "work/$N.conf" --days 7 --output "work/$N.xml" --quiet 2>"work/$N.err2" || true
+              if [ ! -s "work/$N.xml" ]; then
+                echo "(config-file attempt returned nothing; trying --channel)"
+                timeout 1500 "$G" --channel "$(python3 compare.py chlist "$N")" --days 7 --output "work/$N.xml" --quiet 2>"work/$N.err3" || true
+              fi
+              if [ ! -s "work/$N.xml" ]; then
+                echo "grabbing FAILED:"; cat work/$N.err2 work/$N.err3 2>/dev/null | head -n 20; continue
+              fi
+              python3 compare.py stats "$N" "work/$N.xml"
+            } >> work/grabbers.txt 2>&1
+          done
+
+      - name: Write the report
+        run: |
+          {
+            echo "Guide source comparison - $(date -u)"
+            echo ""
+            python3 compare.py summary || echo "summary failed"
+            echo ""
+            echo "################ DETAILS ################"
+            cat work/baseline.txt 2>/dev/null
+            cat work/grabbers.txt 2>/dev/null
+          } > docs/compare-report.txt
+          head -n 60 docs/compare-report.txt
+
+      - name: Save the report
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/compare-report.txt
+          git commit -m "Guide source comparison" || echo "nothing to commit"
+          git push || true
