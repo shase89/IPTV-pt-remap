@@ -1,0 +1,420 @@
+{
+"rtp1.pt": [
+"PT: RTP 1 FHD",
+"PT: RTP 1 HD HEVC",
+"PT: RTP 1 SD"
+],
+"rtp2.pt": [
+"PT: RTP 2 FHD",
+"PT: RTP 2 HD HEVC",
+"PT: RTP 2 SD"
+],
+"sic.pt": [
+"PT: SIC FHD",
+"PT: SIC HD HEVC",
+"PT: SIC SD"
+],
+"tvi.pt": [
+"PT: TVI FHD",
+"PT: TVI HD HEVC",
+"PT: TVI SD"
+],
+"cnn.pt": [
+"PT: CNN FHD",
+"PT: CNN HD"
+],
+"cmtv.pt": [
+"PT: CMTV FHD",
+"PT: CMTV HD",
+"PT: CMTV SD"
+],
+"sicnoticias.pt": [
+"PT: SIC Notccias FHD",
+"PT: SIC Notccias HD"
+],
+"rtp3.pt": [
+"PT: RTP 3 FHD",
+"PT: RTP 3 HD"
+],
+"rtpmemoria.pt": [
+"PT: RTP Memoria"
+],
+"rtpmadeira.pt": [
+"PT: RTP Madeira"
+],
+"rtpinternacional.pt": [
+"PT: RTP Internacional"
+],
+"rtpafrica.pt": [
+"PT: RTP Africa"
+],
+"rtpacores.pt": [
+"PT: RTP Acores"
+],
+"artv.pt": [
+"PT: AR TV"
+],
+"siccaras.pt": [
+"PT: SIC Caras FHD",
+"PT: SIC Caras HD"
+],
+"sicradical.pt": [
+"PT: SIC Radical FHD",
+"PT: SIC Radical HD"
+],
+"sicmulher.pt": [
+"PT: SIC Mulher FHD",
+"PT: SIC Mulher HD"
+],
+"kuriakostv.pt": [
+"PT: Kuriakos TV FHD"
+],
+"tvireality.pt": [
+"PT: TVI Reality FHD",
+"PT: TVI Reality HD"
+],
+"tvificcao.pt": [
+"PT: TVI Ficcco FHD",
+"PT: TVI Ficcco"
+],
+"24kitchen.pt": [
+"PT: 24 Kitchen FHD"
+],
+"tlc.pt": [
+"PT: TLC HD"
+],
+"cancaonova.pt": [
+"PT: Cancao Nova HD"
+],
+"canalq.pt": [
+"PT: Canal Q HD"
+],
+"eentertainment.pt": [
+"PT: E! Entertainment FHD",
+"PT: E! Entertainment HD"
+],
+"zapviva.pt": [
+"PT: ZAP Viva HD"
+],
+"casaecozinha.pt": [
+"PT: Casa e Cozinha FHD"
+],
+"hgtv.pt": [
+"PT: Home & Garden TV FHD"
+],
+"mtv.pt": [
+"PT: MTV HD"
+],
+"bomsom.pt TV": [
+"PT: BOM SOM FHD"
+],
+"clubbingtvhd.pt": [
+"PT: Clubbing TV"
+],
+"traceurban.pt": [
+"PT: Trace Urban FHD"
+],
+"tracetoca.pt": [
+"PT: Trace Toca FHD"
+],
+"mcmpop.pt": [
+"PT: MCM Pop"
+],
+"afromusicchannel.pt": [
+"PT: Afro Music"
+],
+"mezzo.pt": [
+"PT: Mezzo"
+],
+"tvcinetop.pt": [
+"PT: TVCine TOP FHD",
+"PT: TVCine TOP HD"
+],
+"tvcineemotion.pt": [
+"PT: TVCine Emotion FHD",
+"PT: TVCine Emotion HD"
+],
+"tvcineedition.pt": [
+"PT: TVCine Edition FHD",
+"PT: TVCine Edition HD"
+],
+"tvcineaction.pt": [
+"PT: TVCine Action FHD"
+],
+"vh1.pt": [
+"PT: TVCine Action HD"
+],
+"1plus1.pt": [
+"PT: TVCINE + HD",
+"PT: Sport TV 7 FHD",
+"PT: Kombat Sport"
+],
+"syfy.pt": [
+"PT: SYFY FHD",
+"PT: SYFY HD",
+"PT: SYFY SD"
+],
+"cinemundo.pt": [
+"PT: CineMundo FHD",
+"PT: CineMundo HD",
+"PT: CineMundo -d-"
+],
+"starmovies.pt": [
+"PT: Star Movies FHD",
+"PT: Star Movies HD"
+],
+"star.pt": [
+"PT: Star FHD",
+"PT: Star HD"
+],
+"starlife.pt": [
+"PT: Star Life FHD",
+"PT: Star Life HD"
+],
+"starcrime.pt": [
+"PT: Star Crime FHD",
+"PT: Star Crime HD"
+],
+"starcomedy.pt": [
+"PT: Star Comedy HD",
+"PT: Star Comedy FHD"
+],
+"canalhollywood.pt": [
+"PT: Hollywood FHD",
+"PT: Hollywood HD"
+],
+"nostudios.pt": [
+"PT: NOS Studios FHD",
+"PT: NOS Studios HD"
+],
+"amc.pt": [
+"PT: AMC FHD",
+"PT: AMC HD"
+],
+"amccrime.pt": [
+"PT: AMC Crime FHD",
+"PT: AMC Crime HD"
+],
+"amcbreak.pt": [
+"PT: AMC Break FHD",
+"PT: AMC Break HD"
+],
+"axn.pt": [
+"PT: AXN FHD",
+"PT: AXN HD"
+],
+"axnmovies.pt": [
+"PT: AXN Movies FHD",
+"PT: AXN Movies HD"
+],
+"axnwhite.pt": [
+"PT: AXN White FHD",
+"PT: AXN White HD"
+],
+"sporttvplus.pt": [
+"PT: SPORT TV+ HD",
+"PT: SPORT TV+ FHD"
+],
+"canal11.pt": [
+"PT: CANAL 11 FHD",
+"PT: CANAL 11 HD HEVC",
+"PT: CANAL 11 SD"
+],
+"sporttv1.pt": [
+"PT: Sport TV 1 FHD ( MEO )",
+"PT: SPORT TV 1 FHD ( NOS )",
+"PT: SPORT TV 1 HD HEVC",
+"PT: Sport TV 1 SD"
+],
+"sporttv2.pt": [
+"PT: Sport TV 2 FHD ( MEO )",
+"PT: Sport TV 2 FHD ( NOS )",
+"PT: Sport TV 2 HD HEVC",
+"PT: Sport TV 2 SD"
+],
+"sporttv3.pt": [
+"PT: Sport TV 3 FHD ( MEO )",
+"PT: SPORT TV 3 FHD ( NOS )",
+"PT: Sport TV 3 HD HEVC",
+"PT: Sport TV 3 SD"
+],
+"sporttv4.pt": [
+"PT: Sport TV 4 FHD ( MEO )",
+"PT: SPORT TV 4 FHD ( NOS )",
+"PT: Sport TV 4 HD HEVC",
+"PT: Sport TV 4 SD"
+],
+"sporttv5.pt": [
+"PT: Sport TV 5 FHD ( MEO )",
+"PT: SPORT TV 5 FHD ( NOS )",
+"PT: Sport TV 5 HD HEVC",
+"PT: Sport TV 5 SD"
+],
+"sporttv6.pt": [
+"PT: Sport TV 6 FHD ( MEO )",
+"PT: SPORT TV 6 FHD ( NOS )",
+"PT: Sport TV 6 HEVC",
+"PT: Sport TV 6 SD"
+],
+"elevensports1.pt": [
+"PT: DAZN 1 FHD  ( MEO )",
+"PT: DAZN 1 FHD ( NOS )",
+"PT: DAZN 1 HD",
+"PT: DAZN 1 SD"
+],
+"elevensports2.pt": [
+"PT: DAZN 2 FHD ( MEO )",
+"PT: DAZN 2 FHD ( NOS )",
+"PT: DAZN 2 HD",
+"PT: DAZN 2 SD"
+],
+"elevensports3.pt": [
+"PT: DAZN 3 FHD",
+"PT: DAZN 3 HD",
+"PT: DAZN 3 SD"
+],
+"elevensports4.pt": [
+"PT: DAZN 4 FHD",
+"PT: DAZN 4 HD",
+"PT: DAZN 4 SD"
+],
+"elevensports5.pt": [
+"PT: DAZN 5 FHD",
+"PT: DAZN 5 HD",
+"PT: DAZN 5 SD"
+],
+"benficatv.pt": [
+"PT: Benfica TV FHD ( MEO )",
+"PT: Benfica TV FHD ( NOS )",
+"PT: Benfica TV HD HEVC",
+"PT: Benfica TV SD"
+],
+"sportingtv.pt": [
+"PT: Sporting TV FHD"
+],
+"abolatv.pt": [
+"PT: A Bola TV HD ????",
+"PT: A Bola TV"
+],
+"porto.pt": [
+"PT: Porto Canal HD",
+"PT: Porto Canal FHD"
+],
+"motorvision.pt": [
+"PT: Motorvision TV",
+"PT: Motors tv"
+],
+"pfc.pt": [
+"PT: PFC HD"
+],
+"eurosport1.pt": [
+"PT: Eurosport 1 FHD",
+"PT: Eurosport 1 HD"
+],
+"eurosport2.pt": [
+"PT: Eurosport 2 FHD",
+"PT: Eurosport 2 HD"
+],
+"wsport.pt": [
+"PT: W-Sport FHD"
+],
+"fueltv.pt": [
+"PT: Fuel TV HD"
+],
+"toros.pt": [
+"PT: Toros TV"
+],
+"cacavision.pt": [
+"PT: Cacavision"
+],
+"cacaepesca.pt": [
+"PT: Caza Y Pesca"
+],
+"euronews.pt": [
+"PT: Euronews"
+],
+"recordtv.pt": [
+"PT: Record TV HD"
+],
+"globonews.pt": [
+"PT: TV Globo News HD"
+],
+"globo.pt": [
+"PT: TV Globo HD",
+"PT: TV Globo FHD"
+],
+"disneyjunior.pt": [
+"PT: Disney Junior HD"
+],
+"disneychannel.pt": [
+"PT: Disney Channel HD"
+],
+"nickelodeon.pt": [
+"PT: Nickelodeon FHD"
+],
+"nickjr.pt": [
+"PT: Nick Jr. FHD"
+],
+"sick.pt": [
+"PT: SIC K FHD",
+"PT: SIC K HD"
+],
+"panda.pt": [
+"PT: Panda Kids HD",
+"PT: Canal Panda HD"
+],
+"biggs.pt": [
+"PT: VinTV"
+],
+"cartoonnetwork.pt": [
+"PT: Cartoon Network HD"
+],
+"babytv.pt": [
+"PT: Baby TV"
+],
+"lolly.kids.pt": [
+"PT: Lolly Kids"
+],
+"discoverychannelhd.pt": [
+"PT: Discovery Channel FHD",
+"PT: Discovery Channel HD"
+],
+"odisseia.pt": [
+"PT: ODISSEIA FHD",
+"PT: ODISSEIA HD"
+],
+"nationalgeographic.pt": [
+"PT: National Geographic FHD",
+"PT: National Geographic HD"
+],
+"nationalgeographicwild.pt": [
+"PT: Nat Geo Wild FHD",
+"PT: Nat Geo Wild HD"
+],
+"investigationdiscovery.pt": [
+"PT: ID Investigation Discovery FHD",
+"PT: ID Investigation Discovery HD"
+],
+"travelxp.pt": [
+"PT: Travel XP FHD"
+],
+"travelchannel.pt": [
+"PT: Travel Channel FHD"
+],
+"historia.pt": [
+"PT: Historia FHD",
+"PT: Historia"
+],
+"splus.pt": [
+"PT: S+ FHD"
+],
+"bloomberg.pt": [
+"PT: Bloomberg"
+],
+"foodnetwork.pt": [
+"PT: Food Network HD"
+],
+"tcvinternational.pt": [
+"PT: TCV Internacional"
+]
+}
