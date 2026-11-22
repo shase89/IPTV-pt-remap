@@ -21,6 +21,7 @@ import io
 import json
 import re
 import sys
+import unicodedata
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -182,6 +183,146 @@ def dazn_programme_xml(pid, p):
     return ET.tostring(el, encoding="unicode")
 
 
+# ---------------------------------------------------------------- MEO gap filler
+# Where M3UPT only says "Informação Não Disponibilizada Pelo Canal" (or is empty), ask MEO's
+# public TV guide (the one meo.pt uses) what is on in that slot. Everything else is untouched.
+
+MEO_API = "https://meogouser.apps.meo.pt/Services/GridTv/GridTv.svc/GetLiveChannelProgramsByDate"
+MEO_HEADERS = {
+    "Accept": "*/*",
+    "Origin": "https://www.meo.pt",
+    "Referer": "https://www.meo.pt/",
+    "User-Agent": "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/144.0.0.0 Mobile Safari/537.36",
+}
+GAP_TITLES = {"", "informacaonaodisponibilizadapelocanal", "direto", "semtitulo"}
+MEO_MAX_REQUESTS = 80     # keep the load on MEO small
+NO_INFO = "Informação Não Disponibilizada Pelo Canal"
+GAP_HORIZON = timedelta(days=3)
+
+
+def title_key(title):
+    s = unicodedata.normalize("NFKD", title or "")
+    s = "".join(c for c in s if not unicodedata.combining(c)).lower()
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
+def is_gap(title):
+    return title_key(title) in GAP_TITLES
+
+
+def find_gaps(src, targets, codes, now):
+    """First pass over the guide: 'no information' slots per provider id, now to 3 days ahead."""
+    gaps = defaultdict(set)
+    for _e, el in ET.iterparse(src, events=("end",)):
+        if el.tag == "programme":
+            ids = [p for p in targets.get(el.get("channel"), ()) if p in codes]
+            if ids and is_gap(el.findtext("title")):
+                try:
+                    s, e = parse_xmltv_time(el.get("start")), parse_xmltv_time(el.get("stop"))
+                except (ValueError, TypeError):
+                    s = e = None
+                if s and e and e > now and s < now + GAP_HORIZON:
+                    for pid in ids:
+                        gaps[pid].add((s, e))
+        if el.tag in ("programme", "channel"):
+            el.clear()
+    src.seek(0)
+    return gaps
+
+
+def fetch_meo(gaps, codes, local_dir=None):
+    """Download MEO listings only for the channel/days that have gaps: {code: [programmes]}."""
+    from zoneinfo import ZoneInfo
+    lisbon = ZoneInfo("Europe/Lisbon")
+    wanted = set()
+    for pid, slots in gaps.items():
+        for s, e in slots:
+            d, last = s.astimezone(lisbon).date(), e.astimezone(lisbon).date()
+            while d <= last:
+                wanted.add((codes[pid], d))
+                d += timedelta(days=1)
+    result, fails, done = defaultdict(dict), 0, 0
+    for code, d in sorted(wanted, key=lambda x: (x[1], x[0])):
+        if done >= MEO_MAX_REQUESTS:
+            print(f"MEO: stopped after {MEO_MAX_REQUESTS} requests")
+            break
+        done += 1
+        try:
+            if local_dir:   # testing: a missing file means "MEO has nothing"
+                f = Path(local_dir) / f"{code}_{d.isoformat()}.json"
+                raw = f.read_text(encoding="utf-8") if f.exists() else '{"Result": []}'
+            else:
+                q = urllib.parse.urlencode({"callLetter": code, "date": d.isoformat(),
+                                            "userAgent": "IPTV_OFR_GTV"})
+                req = urllib.request.Request(f"{MEO_API}?{q}", headers=MEO_HEADERS)
+                raw = urllib.request.urlopen(req, timeout=20).read().decode("utf-8")
+            items = json.loads(raw).get("Result") or []
+        except Exception as exc:
+            fails += 1
+            if fails >= 3 and not result:
+                print(f"MEO guide not reachable ({exc}); gaps stay as they are")
+                return {}
+            continue
+        for it in items:
+            try:
+                start = datetime.fromisoformat(it["StartDate"]).replace(tzinfo=lisbon)
+                stop = datetime.fromisoformat(it["EndDate"]).replace(tzinfo=lisbon)
+            except (KeyError, TypeError, ValueError):
+                continue
+            title = (it.get("Title") or "").strip()
+            if stop <= start or is_gap(title):
+                continue
+            result[code][(start, title)] = {"start": start.astimezone(timezone.utc),
+                                            "stop": stop.astimezone(timezone.utc),
+                                            "title": title,
+                                            "desc": (it.get("Synopsis") or "").strip()}
+    return {code: sorted(v.values(), key=lambda p: p["start"]) for code, v in result.items()}
+
+
+def fill_gaps(gaps, codes, meo):
+    """Gap slots MEO can fill -> (set of (pid, start, stop) to drop, {pid: [programmes] to add})."""
+    drop, add = set(), defaultdict(dict)
+    for pid, slots in gaps.items():
+        progs = meo.get(codes[pid], [])
+        for s, e in slots:
+            inside = [p for p in progs if p["start"] < e and p["stop"] > s]
+            if not inside:
+                continue
+            drop.add((pid, s, e))
+            cursor = s
+            for p in inside:   # clip to the gap so nothing overlaps the neighbouring entries
+                q = {**p, "start": max(p["start"], s), "stop": min(p["stop"], e)}
+                if q["stop"] <= q["start"]:
+                    continue
+                if q["start"] > cursor:   # part of the gap MEO does not cover: keep it marked
+                    add[pid][(cursor, NO_INFO)] = {"start": cursor, "stop": q["start"],
+                                                   "title": NO_INFO, "desc": ""}
+                add[pid][(q["start"], q["title"])] = q
+                cursor = max(cursor, q["stop"])
+            if cursor < e:
+                add[pid][(cursor, NO_INFO)] = {"start": cursor, "stop": e, "title": NO_INFO, "desc": ""}
+    merged = {}
+    for pid, v in add.items():   # join pieces of one programme split across two gap slots
+        out = []
+        for p in sorted(v.values(), key=lambda p: p["start"]):
+            if out and out[-1]["title"] == p["title"] and out[-1]["stop"] == p["start"]:
+                out[-1] = {**out[-1], "stop": p["stop"]}
+            else:
+                out.append(p)
+        merged[pid] = out
+    return drop, merged
+
+
+def meo_programme_xml(pid, p):
+    el = ET.Element("programme", start=xmltv_time(p["start"]), stop=xmltv_time(p["stop"]),
+                    channel=pid)
+    ET.SubElement(el, "title", lang="pt").text = p["title"]
+    if p["desc"]:
+        ET.SubElement(el, "desc", lang="pt").text = p["desc"]
+    return ET.tostring(el, encoding="unicode")
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -190,6 +331,9 @@ def main():
     ap.add_argument("--input", help="local M3UPT file (.xml or .xml.gz); default: download")
     ap.add_argument("--dazn-input", help="saved DAZN schedule JSON (for testing)")
     ap.add_argument("--no-dazn", action="store_true", help="do not use DAZN's schedule")
+    ap.add_argument("--meo-input", help="folder with saved MEO answers CODE_YYYY-MM-DD.json (testing)")
+    ap.add_argument("--no-meo", action="store_true", help="do not fill gaps from MEO")
+    ap.add_argument("--now", help="pretend it is this UTC time, e.g. 2026-10-17T12:00 (testing)")
     ap.add_argument("--mapping", default=str(here / "mapping.json"))
     ap.add_argument("--output", default=str(here / "docs" / "epg.xml.gz"))
     args = ap.parse_args()
@@ -220,8 +364,27 @@ def main():
         src = open_source(str(previous))
         targets = defaultdict(list, {pid: [pid] for pid in cfg["map"]})
         fallback = True
-    too_old = datetime.now(timezone.utc) - timedelta(days=1)
+    now = (datetime.fromisoformat(args.now).replace(tzinfo=timezone.utc) if args.now
+           else datetime.now(timezone.utc))
+    too_old = now - timedelta(days=1)
     extra_names = cfg.get("names", {})   # provider id -> extra display names to show in TiviMate
+
+    # MEO gap filler: never allowed to break the build
+    codes = {} if args.no_meo else cfg.get("meo", {})
+    meo_drop, meo_add = set(), {}
+    if codes:
+        try:
+            gaps = find_gaps(src, targets, codes, now)
+            if gaps:
+                meo_drop, meo_add = fill_gaps(gaps, codes, fetch_meo(gaps, codes, args.meo_input))
+            print(f"MEO gap filler: {sum(len(v) for v in gaps.values())} empty slots on "
+                  f"{len(gaps)} channels; {len(meo_drop)} filled with "
+                  f"{sum(len(v) for v in meo_add.values())} MEO programmes"
+                  + (f" ({', '.join(sorted(meo_add))})" if meo_add else ""))
+        except Exception as exc:
+            print(f"MEO gap filler skipped this time ({exc})")
+            meo_drop, meo_add = set(), {}
+            src.seek(0)
 
     out = io.StringIO()
     out.write('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -262,6 +425,8 @@ def main():
                     if span and s and e and s < span[1] and e > span[0]:
                         replaced += 1   # DAZN's own data covers this slot
                         continue
+                    if (pid, s, e) in meo_drop:
+                        continue        # empty slot that MEO fills below
                     el.set("channel", pid)
                     out.write(ET.tostring(el, encoding="unicode").strip() + "\n")
                     programmes += 1
@@ -277,6 +442,13 @@ def main():
         for p in progs:
             out.write(dazn_programme_xml(pid, p) + "\n")
             dazn_count += 1
+    meo_count = 0
+    for pid, progs in meo_add.items():
+        if pid in channels_written:
+            for p in progs:
+                out.write(meo_programme_xml(pid, p) + "\n")
+                meo_count += 1
+    programmes += meo_count
     out.write("</tv>\n")
 
     if len(channels_written) < MIN_CHANNELS or programmes + dazn_count == 0:
@@ -290,7 +462,7 @@ def main():
                                                mtime=0, compresslevel=9) as f:
         f.write(out.getvalue().encode("utf-8"))
     print(f"Wrote {outp}: {len(channels_written)} channels, {programmes + dazn_count} programmes "
-          f"({dazn_count} from DAZN, replacing {replaced} M3UPT entries)")
+          f"({dazn_count} from DAZN, replacing {replaced} M3UPT entries; {meo_count} from MEO)")
     missing = sorted(set(cfg["map"]) - channels_written)
     if missing:
         print("Not found in the source guide this time:", ", ".join(missing))
