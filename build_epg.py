@@ -14,7 +14,9 @@ Usage:
     python3 build_epg.py --no-dazn                # M3UPT only
 """
 import argparse
+import copy
 import gzip
+import time
 import io
 import json
 import re
@@ -44,15 +46,25 @@ DAZN_DEFAULT = {
 }
 
 
-def open_source(src):
-    if src.startswith(("http://", "https://")):
-        req = urllib.request.Request(src, headers={"User-Agent": "Mozilla/5.0 (epg-pt-remap)"})
-        data = urllib.request.urlopen(req, timeout=120).read()
-    else:
-        data = Path(src).read_bytes()
-    if data[:2] == b"\x1f\x8b":  # gzip magic number
-        data = gzip.decompress(data)
-    return io.BytesIO(data)
+def open_source(src, tries=3):
+    """Read the M3UPT guide (URL or file). Downloads are retried a few times before giving up."""
+    for attempt in range(1, tries + 1):
+        try:
+            if src.startswith(("http://", "https://")):
+                req = urllib.request.Request(src, headers={"User-Agent": "Mozilla/5.0 (epg-pt-remap)"})
+                data = urllib.request.urlopen(req, timeout=120).read()
+            else:
+                data = Path(src).read_bytes()
+            if data[:2] == b"\x1f\x8b":  # gzip magic number
+                data = gzip.decompress(data)
+            if b"<tv" not in data[:2000]:
+                raise ValueError("not an XMLTV file")
+            return io.BytesIO(data)
+        except Exception as exc:
+            print(f"M3UPT guide: attempt {attempt} of {tries} failed ({exc})")
+            if attempt == tries or not src.startswith(("http://", "https://")):
+                raise
+            time.sleep(30 * attempt)
 
 
 def xmltv_time(dt):
@@ -194,7 +206,22 @@ def main():
     # time span DAZN covers per channel: M3UPT entries inside it are replaced
     dazn_span = {pid: (v[0]["start"], max(p["stop"] for p in v)) for pid, v in dazn.items()}
 
-    src = open_source(args.input or cfg["source_url"])
+    # If M3UPT cannot be read, rebuild from the guide published last time, so that the
+    # DAZN schedule still gets refreshed instead of the whole update failing.
+    fallback = False
+    try:
+        src = open_source(args.input or cfg["source_url"])
+    except Exception:
+        previous = Path(args.output)
+        if not previous.exists():
+            raise
+        print("M3UPT guide not available this time; reusing the last published guide "
+              "(DAZN is still refreshed)")
+        src = open_source(str(previous))
+        targets = defaultdict(list, {pid: [pid] for pid in cfg["map"]})
+        fallback = True
+    too_old = datetime.now(timezone.utc) - timedelta(days=1)
+    extra_names = cfg.get("names", {})   # provider id -> extra display names to show in TiviMate
 
     out = io.StringIO()
     out.write('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -205,10 +232,20 @@ def main():
     for _event, el in ET.iterparse(src, events=("end",)):
         if el.tag == "channel":
             for pid in targets.get(el.get("id"), ()):
-                el.set("id", pid)
-                out.write(ET.tostring(el, encoding="unicode").strip() + "\n")
+                if pid in channels_written:
+                    continue
+                ch = copy.deepcopy(el)
+                ch.set("id", pid)
+                have = {(d.text or "").strip() for d in ch.findall("display-name")}
+                for name in extra_names.get(pid, []):
+                    if name not in have:
+                        # insert after the existing names, before icons
+                        pos = len(ch.findall("display-name"))
+                        new = ET.Element("display-name")
+                        new.text = name
+                        ch.insert(pos, new)
+                out.write(ET.tostring(ch, encoding="unicode").strip() + "\n")
                 channels_written.add(pid)
-                el.set("id", "")
             el.clear()
         elif el.tag == "programme":
             ids = targets.get(el.get("channel"), ())
@@ -217,6 +254,9 @@ def main():
                     s, e = parse_xmltv_time(el.get("start")), parse_xmltv_time(el.get("stop"))
                 except (ValueError, TypeError):
                     s = e = None
+                if fallback and e and e < too_old:
+                    el.clear()
+                    continue   # drop old programmes so a reused guide does not keep growing
                 for pid in ids:
                     span = dazn_span.get(pid)
                     if span and s and e and s < span[1] and e > span[0]:

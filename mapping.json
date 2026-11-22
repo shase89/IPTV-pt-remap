@@ -2,7 +2,19 @@
  "map": {
   "24kitchen.pt": "24Kitchen.pt",
   "CanalPanda.pt": "CanalPanda.pt",
+  "Cartoonito.pt": "Cartoonito.pt",
+  "GaliciaTVEuropa.es": "GaliciaTVEuropa.es",
+  "Motorvision.de": "Motorvision.de",
+  "MyTimeMovieNetwork.br": "MyTimeMovieNetwork.br",
+  "NewsNow.pt": "NewsNow.pt",
   "PandaKids.pt": "PandaKids.pt",
+  "SICNovelas.pt": "SICNovelas.pt",
+  "SICReplay.pt": "SICReplay.pt",
+  "SportTV7.pt": "SportTV7.pt",
+  "StingrayiConcerts.ca": "StingrayiConcerts.ca",
+  "TimelessDiziChannel.ro": "TimelessDiziChannel.ro",
+  "TraceBrazuca.fr": "TraceBrazuca.fr",
+  "VPlusTVI.pt": "VPlusTVI.pt",
   "abolatv.pt": "ABolaTV.pt",
   "afromusicchannel.pt": "AfroMusicChannel.pt",
   "amc.pt": "AMC.pt",
@@ -104,12 +116,75 @@
   "wsport.pt": "WSport.za",
   "zapviva.pt": "ZapViva.ao"
  },
+ "names": {
+  "CanalPanda.pt": [
+   "PT: Canal Panda HD"
+  ],
+  "Cartoonito.pt": [
+   "PT: Cartoonito HD"
+  ],
+  "GaliciaTVEuropa.es": [
+   "PT: TV Galícia FHD"
+  ],
+  "Motorvision.de": [
+   "PT: Motorvision TV"
+  ],
+  "MyTimeMovieNetwork.br": [
+   "PT: MyTime Movie Network"
+  ],
+  "NewsNow.pt": [
+   "PT: NOW FHD"
+  ],
+  "PandaKids.pt": [
+   "PT: Panda Kids HD"
+  ],
+  "SICNovelas.pt": [
+   "PT: SIC Novelas HD"
+  ],
+  "SICReplay.pt": [
+   "PT: SIC Replay FHD"
+  ],
+  "SportTV7.pt": [
+   "PT: Sport TV 7 HD",
+   "PT: Sport TV 7 SD"
+  ],
+  "StingrayiConcerts.ca": [
+   "PT: Stingray Iconcerts FHD"
+  ],
+  "TimelessDiziChannel.ro": [
+   "PT: DIZI FHD"
+  ],
+  "TraceBrazuca.fr": [
+   "PT: Trace Brasil HD"
+  ],
+  "VPlusTVI.pt": [
+   "PT: V+ TVI FHD"
+  ],
+  "mtv.pt": [
+   "PT: MTV FHD"
+  ]
+ },
+ "no_source": [
+  "MTV Live (source has no programmes)",
+  "Cine Kuriakos",
+  "Mundotoro TV",
+  "RTP Arena",
+  "TV Fátima",
+  "Campo Pequeno TV",
+  "PFC",
+  "Toros TV",
+  "Globo News",
+  "TVCine+",
+  "Kombat Sport",
+  "Motors TV",
+  "Clubbing TV"
+ ],
  "not_mapped": {
-  "1plus1.pt": "shared by TVCine+, Sport TV 7 and Kombat Sport - assign by hand in TiviMate (Sport TV 7 = SportTV7.pt)",
+  "1plus1.pt": "shared by TVCine+, Sport TV 7 and Kombat Sport - Sport TV 7 has its own entries in your playlist; assign them to the guide entry 'Sport TV 7'",
   "cacavision.pt": "no equivalent in the M3UPT guide",
   "globonews.pt": "no equivalent in the M3UPT guide",
   "lolly.kids.pt": "no equivalent in the M3UPT guide",
-  "motorvision.pt": "shared by two different motor channels",
+  "motorvision.pt": "shared by Motorvision TV and Motors TV - assign Motorvision TV by hand to the guide entry 'Motorvision'",
   "panda.pt": "shared by Panda Kids and Canal Panda - assign by hand in TiviMate to the guide entries 'Panda Kids' and 'Canal Panda'",
   "pfc.pt": "no equivalent in the M3UPT guide",
   "toros.pt": "no equivalent in the M3UPT guide"
